@@ -19,13 +19,13 @@ def main():
     user_input = input(f"{MENU}\n>>> ").upper()
     while user_input != 'Q':
         if user_input == 'L':
-            movie_list = show_movie(movies)
+            show_movie(movies)
             user_input = input(f"{MENU}\n>>> ").upper()
         elif user_input == 'A':
-            new_movie = add_movie()
+            add_movie()
             user_input = input(f"{MENU}\n>>> ").upper()
         elif user_input == 'W':
-            movie_watched = watch_movie()
+            watch_movie(movies)
             user_input = input(f"{MENU}\n>>> ").upper()
         else:
             print("Invalid menu choice")
@@ -50,8 +50,30 @@ def add_movie():
     pass
 
 
-def watch_movie():
-    pass
+def watch_movie(movies):
+    movie_choice = input("Enter the number of a movie to mark as watched\n>>> ")
+    is_valid = False
+    while not is_valid:
+        try:
+            movie_choice = int(movie_choice)
+            if movie_choice > len(movies) - 1:
+                print("Invalid movie number")
+                movie_choice = input(">>> ")
+            elif movie_choice < 0:
+                print("Number must >= 0")
+                movie_choice = input(">>> ")
+            else:
+                is_valid = True
+        except ValueError:
+            print("Invalid input; enter a valid number")
+            movie_choice = input(">>>")
+
+    movie = movies[movie_choice]
+    if movie[3] == 'u':
+        print(f"{movie[0]} form {movie[1]} watched")
+        movie[3] = 'w'
+    else:
+        print(f"You have already watched {movie[0]}")
 
 
 def sort_movies(movies):
