@@ -15,6 +15,7 @@ Q - Quit"""
 
 def main():
     movies = load_movies()
+    sort_movies(movies)
     user_input = input(f"{MENU}\n>>> ").upper()
     while user_input != 'Q':
         if user_input == 'L':
@@ -35,8 +36,7 @@ def main():
 def show_movie(movies):
     watched_movie = 0
     unwatch_movie = 0
-    for num, line in enumerate(movies):
-        movie = line.strip().split(',')
+    for num, movie in enumerate(movies):
         if movie[3] == 'u':
             unwatch_movie = unwatch_movie + 1
             print(f"{num}. *  {movie[0]:<35} - {movie[1]:>4} ({movie[2]})")
@@ -54,10 +54,17 @@ def watch_movie():
     pass
 
 
+def sort_movies(movies):
+    for movie in movies:
+        movie[1] = int(movie[1])
+    movies.sort(key=lambda x: (x[1], x[2]))
+
+
 def load_movies():
     movies = open("movies.csv", 'r')
     movie_list = []
-    for movie in movies:
+    for line in movies:
+        movie = line.strip().split(',')
         movie_list.append(movie)
     return movie_list
 
