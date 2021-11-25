@@ -14,8 +14,19 @@ Q - Quit"""
 
 
 def main():
-    movie_list = load_movies()
-    print(movie_list)
+    original_movies = load_movies()
+    user_input = input(f"{MENU}\n>>> ").upper()
+    while user_input != 'Q':
+        if user_input == 'L':
+            movie_list = show_movie()
+        elif user_input == 'A':
+            new_movie = add_movie()
+        elif user_input == 'W':
+            movie_watched = watch_movie()
+        else:
+            print("Invalid menu choice")
+            user_input = input(f"{MENU}\n>>> ").upper()
+    print("{} movies saved to movies.csv\nHave a nice day :)")
 
 
 def load_movies():
