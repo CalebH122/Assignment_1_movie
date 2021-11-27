@@ -22,7 +22,8 @@ def main():
             show_movie(movies)
             user_input = input(f"{MENU}\n>>> ").upper()
         elif user_input == 'A':
-            add_movie()
+            add_movie(movies)
+            sort_movies(movies)
             user_input = input(f"{MENU}\n>>> ").upper()
         elif user_input == 'W':
             watch_movie(movies)
@@ -46,8 +47,53 @@ def show_movie(movies):
     print("{} movies watched, {} movies still to watch.".format(watched_movie, unwatch_movie))
 
 
-def add_movie():
-    pass
+def add_movie(movies):
+    new_movie = []
+    movie_name = name_check()
+    new_movie.append(movie_name)
+    movie_year = year_check()
+    new_movie.append(movie_year)
+    movie_category = category_check()
+    new_movie.append(movie_category)
+    movie_status = 'u'
+    new_movie.append(movie_status)
+    movies.append(new_movie)
+
+
+def category_check():
+    category = input("Category: ")
+    while category == '':
+        print("Input can not be blank")
+        category = input("Category: ")
+    return category
+
+
+def year_check():
+    year = input("Year: ")
+    is_year_valid = False
+    while not is_year_valid:
+        try:
+            year = int(year)
+            if year <= 0:
+                print("Number must be >= 0")
+                year = input("Year: ")
+            elif year == '':
+                print("Invalid input; enter a valid number")
+                year = input("Year: ")
+            else:
+                is_year_valid = True
+                return year
+        except ValueError:
+            print("Invalid input; enter a valid number")
+            year = input("Year: ")
+
+
+def name_check():
+    name = input("Title: ")
+    while name == '':
+        print("Input can not be blank")
+        name = input("Title: ")
+    return name
 
 
 def watch_movie(movies):
