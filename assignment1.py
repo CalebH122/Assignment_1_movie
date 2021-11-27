@@ -31,7 +31,8 @@ def main():
         else:
             print("Invalid menu choice")
             user_input = input(f"{MENU}\n>>> ").upper()
-    print("{} movies saved to movies.csv\nHave a nice day :)")
+    save_movies(movies)
+    print("{} movies saved to movies.csv\nHave a nice day :)".format(len(movies)))
 
 
 def show_movie(movies):
@@ -97,29 +98,41 @@ def name_check():
 
 
 def watch_movie(movies):
-    movie_choice = input("Enter the number of a movie to mark as watched\n>>> ")
-    is_valid = False
-    while not is_valid:
-        try:
-            movie_choice = int(movie_choice)
-            if movie_choice > len(movies) - 1:
-                print("Invalid movie number")
-                movie_choice = input(">>> ")
-            elif movie_choice < 0:
-                print("Number must >= 0")
-                movie_choice = input(">>> ")
-            else:
-                is_valid = True
-        except ValueError:
-            print("Invalid input; enter a valid number")
-            movie_choice = input(">>>")
-
-    movie = movies[movie_choice]
-    if movie[3] == 'u':
-        print(f"{movie[0]} form {movie[1]} watched")
-        movie[3] = 'w'
+    unwatch_movie = movie_counter(movies)
+    if unwatch_movie == 0:
+        print("No more movies to watch!")
     else:
-        print(f"You have already watched {movie[0]}")
+        movie_choice = input("Enter the number of a movie to mark as watched\n>>> ")
+        is_valid = False
+        while not is_valid:
+            try:
+                movie_choice = int(movie_choice)
+                if movie_choice > len(movies) - 1:
+                    print("Invalid movie number")
+                    movie_choice = input(">>> ")
+                elif movie_choice < 0:
+                    print("Number must >= 0")
+                    movie_choice = input(">>> ")
+                else:
+                    is_valid = True
+            except ValueError:
+                print("Invalid input; enter a valid number")
+                movie_choice = input(">>>")
+
+        movie = movies[movie_choice]
+        if movie[3] == 'u':
+            print(f"{movie[0]} form {movie[1]} watched")
+            movie[3] = 'w'
+        else:
+            print(f"You have already watched {movie[0]}")
+
+
+def movie_counter(movies):
+    unwatch_movie = 0
+    for movie in movies:
+        if movie[3] =='u':
+            unwatch_movie = unwatch_movie + 1
+    return unwatch_movie
 
 
 def sort_movies(movies):
@@ -134,7 +147,15 @@ def load_movies():
     for line in movies:
         movie = line.strip().split(',')
         movie_list.append(movie)
+    movies.close()
     return movie_list
+
+
+def save_movies(movies):
+    save_file = open("movies.csv", 'w')
+    for movie in movies:
+        print(f"{movie[0]},{movie[1]},{movie[2]},{movie[3]}", file=save_file)
+    save_file.close()
 
 
 main()
