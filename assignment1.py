@@ -8,7 +8,8 @@ GitHub URL: https://github.com/CalebH122/Assignment_1_movie/tree/dc40f3bdaa603c3
 
 print("Movies to watch 1.0 - by Jiale Hou")
 
-MENU = """L - List movie
+MENU = """Menu:
+L - List movie
 A - Add new movie
 W - Watch a movie
 Q - Quit"""
@@ -17,6 +18,7 @@ Q - Quit"""
 def main():
     """This is the main function(structure of this program), witch is include all functions under it."""
     movies = load_movies()  # Load function. line 160
+    print("{} movies are loaded".format(len(movies)))
     sort_movies(movies)  # Sort movie function. line 153
     user_input = input(f"{MENU}\n>>> ").upper()
     while user_input != 'Q':
@@ -62,6 +64,7 @@ def add_movie(movies):
     new_movie.append(movie_category)
     movie_status = 'u'
     new_movie.append(movie_status)
+    print("{} ({} from {}) is added to movie list".format(movie_name, movie_category, movie_year))
     movies.append(new_movie)
 
 
