@@ -1,8 +1,8 @@
 """
 Replace the contents of this module docstring with your own details
-Name:
-Date started:
-GitHub URL:
+Name: Jiale Hou
+Date started:11/25/2021 1:26PM
+GitHub URL: https://github.com/CalebH122/Assignment_1_movie/tree/dc40f3bdaa603c373bcd0228af5efe04d719a73a
 """
 
 print("Movies to watch 1.0 - by Jiale Hou")
