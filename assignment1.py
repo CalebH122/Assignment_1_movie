@@ -1,5 +1,6 @@
-"""
-Replace the contents of this module docstring with your own details
+"""This is Movie record code. This code allows you to check all the movies inside of movies.csv file. You can follow
+the menu to use this code. Press L, all movies in the list will be showing to you. Press W, to mark a unwatch movie to
+watched status. Press Q, will end the program.
 Name: Jiale Hou
 Date started:11/25/2021 1:26PM
 GitHub URL: https://github.com/CalebH122/Assignment_1_movie/tree/dc40f3bdaa603c373bcd0228af5efe04d719a73a
@@ -14,28 +15,30 @@ Q - Quit"""
 
 
 def main():
-    movies = load_movies()
-    sort_movies(movies)
+    """This is the main function(structure of this program), witch is include all functions under it."""
+    movies = load_movies()  # Load function. line 160
+    sort_movies(movies)  # Sort movie function. line 153
     user_input = input(f"{MENU}\n>>> ").upper()
     while user_input != 'Q':
         if user_input == 'L':
-            show_movie(movies)
+            show_movie(movies)  # Show movie function. line 40
             user_input = input(f"{MENU}\n>>> ").upper()
         elif user_input == 'A':
-            add_movie(movies)
-            sort_movies(movies)
+            add_movie(movies)  # Add movie function. line 54
+            sort_movies(movies)  # Sort movie function. line 153
             user_input = input(f"{MENU}\n>>> ").upper()
         elif user_input == 'W':
-            watch_movie(movies)
+            watch_movie(movies)  # Watch movie function. line 110
             user_input = input(f"{MENU}\n>>> ").upper()
         else:
             print("Invalid menu choice")
             user_input = input(f"{MENU}\n>>> ").upper()
-    save_movies(movies)
+    save_movies(movies)  # Save movie information function. line 171
     print("{} movies saved to movies.csv\nHave a nice day :)".format(len(movies)))
 
 
 def show_movie(movies):
+    """This is the fist function, this function is designed to show all the movies in the list."""
     watched_movie = 0
     unwatch_movie = 0
     for num, movie in enumerate(movies):
@@ -49,12 +52,13 @@ def show_movie(movies):
 
 
 def add_movie(movies):
+    """This function will collect information of new movie, and add it to the movie list"""
     new_movie = []
-    movie_name = name_check()
+    movie_name = name_check()  # line 100
     new_movie.append(movie_name)
-    movie_year = year_check()
+    movie_year = year_check()  # line 78
     new_movie.append(movie_year)
-    movie_category = category_check()
+    movie_category = category_check()  # line 68
     new_movie.append(movie_category)
     movie_status = 'u'
     new_movie.append(movie_status)
@@ -62,6 +66,8 @@ def add_movie(movies):
 
 
 def category_check():
+    """This function will error check the category input, it will return the valid category input back to add
+    movie function"""
     category = input("Category: ")
     while category == '':
         print("Input can not be blank")
@@ -70,6 +76,8 @@ def category_check():
 
 
 def year_check():
+    """This function use try and expect to error check the year input, eventually it will return a valid number of year
+     back to the add movie function"""
     year = input("Year: ")
     is_year_valid = False
     while not is_year_valid:
@@ -90,6 +98,8 @@ def year_check():
 
 
 def name_check():
+    """This function also is part of add movie function, it will error check movie name and return it until it is
+     valid."""
     name = input("Title: ")
     while name == '':
         print("Input can not be blank")
@@ -98,7 +108,10 @@ def name_check():
 
 
 def watch_movie(movies):
-    unwatch_movie = movie_counter(movies)
+    """This is watch movie function. It will check if there is any movie not watched yet. If no, it will tell you there
+    are no movie left for you to watch. If yes, you will have to enter the movie number to change the movie status as
+    watched for the movie you want to watch. Also this function will error check your input for movie number."""
+    unwatch_movie = movie_counter(movies)  # Count unwatch movie function. line 143
     if unwatch_movie == 0:
         print("No more movies to watch!")
     else:
@@ -128,20 +141,24 @@ def watch_movie(movies):
 
 
 def movie_counter(movies):
+    """This function will count how many unwatch movies are there, this function is important
+     for watch movie function."""
     unwatch_movie = 0
     for movie in movies:
-        if movie[3] =='u':
+        if movie[3] == 'u':
             unwatch_movie = unwatch_movie + 1
     return unwatch_movie
 
 
 def sort_movies(movies):
+    """This function is designed to sort the movies in the list by year and alphabet order."""
     for movie in movies:
         movie[1] = int(movie[1])
     movies.sort(key=lambda x: (x[1], x[2]))
 
 
 def load_movies():
+    """This function is the very first function, it will load movie information into a list for further modification."""
     movies = open("movies.csv", 'r')
     movie_list = []
     for line in movies:
@@ -152,6 +169,7 @@ def load_movies():
 
 
 def save_movies(movies):
+    """The final function, this function is to save all updated movie information back into the csv file."""
     save_file = open("movies.csv", 'w')
     for movie in movies:
         print(f"{movie[0]},{movie[1]},{movie[2]},{movie[3]}", file=save_file)
