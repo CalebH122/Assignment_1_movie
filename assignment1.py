@@ -17,25 +17,25 @@ Q - Quit"""
 
 def main():
     """This is the main function(structure of this program), witch is include all functions under it."""
-    movies = load_movies()  # Load function. line 160
+    movies = load_movies()  # Load function. line 163
     print("{} movies are loaded".format(len(movies)))
-    sort_movies(movies)  # Sort movie function. line 153
+    sort_movies(movies)  # Sort movie function. line 156
     user_input = input(f"{MENU}\n>>> ").upper()
     while user_input != 'Q':
         if user_input == 'L':
-            show_movie(movies)  # Show movie function. line 40
+            show_movie(movies)  # Show movie function. line 43
             user_input = input(f"{MENU}\n>>> ").upper()
         elif user_input == 'A':
-            add_movie(movies)  # Add movie function. line 54
-            sort_movies(movies)  # Sort movie function. line 153
+            add_movie(movies)  # Add movie function. line 57
+            sort_movies(movies)  # Sort movie function. line 156
             user_input = input(f"{MENU}\n>>> ").upper()
         elif user_input == 'W':
-            watch_movie(movies)  # Watch movie function. line 110
+            watch_movie(movies)  # Watch movie function. line 113
             user_input = input(f"{MENU}\n>>> ").upper()
         else:
             print("Invalid menu choice")
             user_input = input(f"{MENU}\n>>> ").upper()
-    save_movies(movies)  # Save movie information function. line 171
+    save_movies(movies)  # Save movie information function. line 174
     print("{} movies saved to movies.csv\nHave a nice day :)".format(len(movies)))
 
 
@@ -56,11 +56,11 @@ def show_movie(movies):
 def add_movie(movies):
     """This function will collect information of new movie, and add it to the movie list"""
     new_movie = []
-    movie_name = name_check()  # line 100
+    movie_name = name_check()  # line 103
     new_movie.append(movie_name)
-    movie_year = year_check()  # line 78
+    movie_year = year_check()  # line 81
     new_movie.append(movie_year)
-    movie_category = category_check()  # line 68
+    movie_category = category_check()  # line 71
     new_movie.append(movie_category)
     movie_status = 'u'
     new_movie.append(movie_status)
@@ -114,7 +114,7 @@ def watch_movie(movies):
     """This is watch movie function. It will check if there is any movie not watched yet. If no, it will tell you there
     are no movie left for you to watch. If yes, you will have to enter the movie number to change the movie status as
     watched for the movie you want to watch. Also this function will error check your input for movie number."""
-    unwatch_movie = movie_counter(movies)  # Count unwatch movie function. line 143
+    unwatch_movie = movie_count(movies)  # Count unwatch movie function. line 143
     if unwatch_movie == 0:
         print("No more movies to watch!")
     else:
@@ -143,7 +143,7 @@ def watch_movie(movies):
             print(f"You have already watched {movie[0]}")
 
 
-def movie_counter(movies):
+def movie_count(movies):
     """This function will count how many unwatch movies are there, this function is important
      for watch movie function."""
     unwatch_movie = 0

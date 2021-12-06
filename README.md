@@ -17,7 +17,9 @@ movie information in the csv file again.
 
 
 1. How long did the entire project (assignment 1) take you?
-> I spend around 30 hours on this assignment.
+> I worked for 3 days, and spend around 30 hours on this assignment.
+> Day 1, I spend the time to design the code.
+> Day 2/3, I code in this two days.
 
 
 2. What do you plan to do  differently in your development process for assignment 2?
